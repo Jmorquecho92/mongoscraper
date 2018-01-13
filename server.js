@@ -14,6 +14,7 @@ var request = require("request");
 var Note = require("./models/Note");
 var Article = require("./models/Article");
 var databaseUrl = 'mongodb://heroku_363p0kdc:egp2hgnde11l1539c0fa8aeg36@ds155577.mlab.com:55577/heroku_363p0kdc';
+//var databaseUrl = 'mongodb://localhost/nyt';
 
 if (process.env.MONGODB_URI) {
 	mongoose.connect(process.env.MONGODB_URI);
@@ -55,7 +56,7 @@ app.listen(port, function() {
 app.get("/", function(req, res) {
 	Article.find({}, null, {sort: {created: -1}}, function(err, data) {
 		if(data.length === 0) {
-			res.render("placeholder", {message: "There's nothing scraped yet. Please click \"Scrape For Newest Articles\" for fresh and delicious news."});
+			res.render("placeholder", {message: "Nothing scraped yet. Please click \"Scrape Articles\"."});
 		}
 		else{
 			res.render("index", {articles: data});
